@@ -83,5 +83,6 @@
 <script src="{{ url('backend/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('backend/js/demo.js')}}"></script>
+<script src="{{ url('backend/js/admin_script.js')}}"></script>
 </body>
 </html>

@@ -32,24 +32,50 @@
                 <h3 class="card-title">Update Password</h3>
               </div>
               <!-- /.card-header -->
+              @if (Session::has('error_message'))
+                <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                  {{Session::get('error_message')}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              @endif
+              @if (Session::has('success_message'))
+                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                  {{Session::get('success_message')}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              @endif
               <!-- form start -->
-              <form role="form">
+          
+              <form role="form" method="post" action="{{ url('/admin/update-current-pwd') }}" name="updatePasswordForm" id="updatePasswordForm">@csrf
                 <div class="card-body">
+                  {{-- <div class="form-group">
+                    <label for="exampleInputName">Admin Name</label>
+                    <input type="text" id="admin_name" value="{{$adminDetails->name}}" class="form-control" name="admin_name" >
+                  </div> --}}
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Admin Email</label>
-                    <input type="email" class="form-control" readonly>
+                    <label for="exampleInputEmail">Admin Email</label>
+                    <input type="email" value="{{$adminDetails->email}}" class="form-control" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputType">Admin Type</label>
+                    <input type="text" value="{{$adminDetails->type}}" class="form-control" readonly>
                   </div>
                   <div class="form-group">
                     <label for="currentPassword">Current Password</label>
-                    <input type="password" class="form-control" id="currentPassword" placeholder="Give current password">
+                    <input type="password" name="current_pwd" class="form-control" id="current_pwd" placeholder="Give current password">
+                    <span id="chkCurrentPwd"></span>
                   </div>
                   <div class="form-group">
                     <label for="newPassword">New Password</label>
-                    <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                    <input type="password" name="new_pwd" class="form-control" id="new_pwd" placeholder="Enter new password">
                   </div>
                   <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                    <input type="password" name="confirm_pwd" class="form-control" id="confirm_pwd" placeholder="Confirm your password">
                   </div>
                 
                   
