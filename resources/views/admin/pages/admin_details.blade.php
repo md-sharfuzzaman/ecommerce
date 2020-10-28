@@ -59,7 +59,7 @@
             @endif
               <!-- form start -->
           
-              <form role="form" method="post" action="{{ url('/admin/update-admin-details') }}" name="updatePasswordForm" id="updatePasswordForm">@csrf
+              <form role="form" method="post" action="{{ url('/admin/update-admin-details') }}" name="updateAdminDetails" id="updateAdminDetails" enctype="multipart/form-data">@csrf
                 <div class="card-body">
                  
                   <div class="form-group">
@@ -81,10 +81,16 @@
                   </div>
                   <div class="form-group">
                     <label for="adminImage">Image</label>
-                    <input type="file" name="admin_image" class="form-control" id="admin_image">
-                  </div>
-                
-                  
+                    <input type="file" accept="image/*" name="admin_image" class="form-control" id="admin_image">
+                    @if (!empty(Auth::guard('admin')->user()->image))
+                        <a target="_blank" href="{{url('backend/img/admin_photos'.Auth::guard('admin')->user()->image)}}">view image</a>
+                        <div >
+                          <img style="height: 50px; width: 50px" src="{{url('backend/img/admin_photos'.Auth::guard('admin')->user()->image)}}" alt="">
+                        </div>
+                        <input type="hidden" name="current_admin_image" value="{{Auth::guard('admin')->user()->image}}"
+                    @endif
+                    
+                  </div>               
                 </div>
                 <!-- /.card-body -->
 
