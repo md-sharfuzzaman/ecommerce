@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- JQVMap -->
   <link rel="stylesheet" href="{{ url('plugins/jqvmap/jqvmap.min.css')}}">
+  <!-- Data table style -->
+  <link rel="stylesheet" href="{{url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('backend/css/adminlte.min.css')}}">
   <!-- overlayScrollbars -->
@@ -60,6 +63,28 @@
 <!-- Bootstrap 4 -->
 <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
+<!-- Data tables -->
+<script src="{{ url('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script>
+  $(function () {
+    $("#sections").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    /* $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    }); */
+  });
+</script>
 <script src="{{ url('plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{ url('plugins/sparklines/sparkline.js')}}"></script>

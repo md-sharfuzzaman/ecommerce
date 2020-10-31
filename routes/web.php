@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('check-current-pwd', [AdminController::class, 'chkCurrentPassword']);
         Route::post('update-current-pwd', [AdminController::class, 'updateCurrentPassword']);
         Route::get('logout', [AdminController::class, 'logout']);
+
+        // Section Route
+        Route::get('sections', [SectionController::class, 'sections']);
+        Route::post('update-section-status', [SectionController::class, 'updateSectionStatus']);
     });
    
 });
