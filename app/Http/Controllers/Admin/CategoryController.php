@@ -53,16 +53,20 @@ class CategoryController extends Controller
 
             // Category Validation
             $rules = [
-                'category_name' => 'required|email|max:255',
+                'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'section_id' => 'required',
+                'category_url' => 'required',
                 'category_image' => 'image',
+               
             ];
 
             $customMessage = [
                 'category_name.required' => 'Name is required',
                 'category_name.regex' => 'Valid Name is required',
-                'email.max' => 'Max 255 Character allowed',
-                'password.required' => 'Password is required'
+                'section_id.required' => 'Section is required',
+                'category_image.image' => 'Valid image is required',
+                'url.required' => 'URL is required',
+               
             ];
             $this->validate($request, $rules, $customMessage);
 
@@ -77,6 +81,9 @@ class CategoryController extends Controller
             }
             if(empty($data['meta_keywords'])){
                 $data['meta_keywords']="";
+            }
+            if(empty($data['category_discount'])){
+                $data['category_discount']="";
             }
             
             // upload category image
@@ -109,6 +116,9 @@ class CategoryController extends Controller
             $category->meta_keywords   = $data['meta_keywords'];
             $category->status   = 1;
             $category->save();
+            
+            Session::flash('success_message', 'Category added successfully');
+            return redirect('admin/categories');
         }
 
         // Get all section

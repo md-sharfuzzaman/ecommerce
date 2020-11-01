@@ -23,6 +23,15 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ url('admin/add-edit-category') }}" name="CategoryForm" id="CategoryForm" method="post" enctype="multipart/form-data">@csrf
                 <div class="card card-default">
                     <div class="card-header">
@@ -51,9 +60,11 @@
                                 <div class="form-group">
                                     <label>Select Section</label>
                                     <select name="section_id" id="section_id" class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">Select</option>
+                                        <option value="">Select</option>
                                         @foreach ($getSections as $section)
-                                            <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                            <option value="{{ $section->id }}">
+                                                {{ $section->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
