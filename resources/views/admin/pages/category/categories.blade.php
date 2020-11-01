@@ -18,7 +18,7 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    <section class="content"> 
+    <section class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -26,31 +26,34 @@
     
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Sections</h3>
+                  <h3 class="card-title">Categories</h3>
+                  <a href="{{ url('admin/add-edit-category') }}" style="max-width: 150px; float:right; display:inline-block" class="btn btn-block btn-success">Add Categories</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="sections" class="table table-bordered table-striped">
+                  <table id="categories" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>ID</th>
                       <th>Name</th>
+                      <th>URL</th>
                       <th>Status</th>
                      
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($sections as $section)
+                    @foreach ($categories as $category)
                     <tr>
-                        <td>{{$section->id}}</td>
-                        <td>{{$section->name}}</td>
+                        <td>{{$category->id}}</td>
+                        <td>{{$category->category_name}}</td>
+                        <td>{{$category->url}}</td>
                         <td>
-                            @if ($section->status==1)
-                            <a href="javascript:void(0)" id="section-{{$section->id}}" 
-                                section_id= {{$section->id}} class="updateSectionStatus">Active</a>
+                            @if ($category->status==1)
+                            <a href="javascript:void(0)" id="category-{{$category->id}}" 
+                                category_id= {{$category->id}} class="updateCategoryStatus">Active</a>
                             @else
-                            <a href="javascript:void(0)" id="section-{{$section->id}}" 
-                                section_id= {{$section->id}} class="updateSectionStatus">Inactive</a>
+                            <a href="javascript:void(0)" id="category-{{$category->id}}" 
+                                category_id= {{$category->id}} class="updateCategoryStatus">Inactive</a>
                             @endif
                         </td>
                      
@@ -61,6 +64,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>URL</th>
                         <th>Status</th>
                     </tr>
                     </tfoot>

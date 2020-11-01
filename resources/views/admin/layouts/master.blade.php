@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="{{ url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <!-- Select 2 -->
+  <link rel="stylesheet" href="{{url('plugins/select2/css/select2.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- JQVMap -->
@@ -29,7 +31,7 @@
   <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
+</head> 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -62,7 +64,14 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- ChartJS -->
+<!-- Seletc 2 -->
+<script src="{{ url('plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+  $('.select2').select2();
+  $('.select2bs4').select2({
+    theme: 'bootstrap4'
+  })
+</script>
 <!-- Data tables -->
 <script src="{{ url('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -74,6 +83,11 @@
       "responsive": true,
       "autoWidth": false,
     });
+    $("#categories").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    
     /* $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

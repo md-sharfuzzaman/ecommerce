@@ -45,6 +45,29 @@ $(document).ready(function(){
 
     });
 
+    // update category status
+
+    $(".updateCategoryStatus").click(function(){
+        let status = $(this).text();
+        let category_id  = $(this).attr("category_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-category-status',
+            data: {status: status, category_id:category_id},
+            success:function(resp){
+                
+                if(resp['status']==0){
+                    $("#category-"+category_id).html(" <a href='javascript:void(0) class='updateCategoryStatus'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#category-"+category_id).html(" <a href='javascript:void(0) class='updateCategoryStatus'>Active</a>");
+                }
+            }, error:function(){
+                alert('error')
+            }
+        })
+
+    });
+
 
 
 });

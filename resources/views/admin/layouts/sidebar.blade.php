@@ -38,12 +38,12 @@
 
           <!-- Settings -->
           @if (Session::get('page')=='settings' ||Session::get('page')=="update-admin-details")
-          <?php $active = "active"; ?>
+          <?php $active = "active"; $menuOpen = "menu-open";?>
           @else 
-          <?php $active = "" ?>
+          <?php $active = ""; $menuOpen = "" ?>
           @endif
          
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview {{ $menuOpen }}">
             <a href="#" class="nav-link {{$active}}">
               <i class="nav-icon fas fa-user-cog"></i>
               <p>
@@ -80,12 +80,12 @@
 
            <!-- Catalogues -->
            @if (Session::get('page')=='sections' ||Session::get('page')=="categories")
-           <?php $active = "active"; ?>
+           <?php $active = "active"; $menuOpen = "menu-open"; ?>
            @else 
-           <?php $active = "" ?>
+           <?php $active = ""; $menuOpen = "" ?>
            @endif
           
-           <li class="nav-item has-treeview menu-open">
+           <li class="nav-item has-treeview {{ $menuOpen }} ">
              <a href="#" class="nav-link {{$active}}">
                <i class="nav-icon fas fa-user-cog"></i>
                <p>
