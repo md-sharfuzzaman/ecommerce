@@ -69,5 +69,20 @@ $(document).ready(function(){
     });
 
 
+    // append category level
 
+    $("#section_id").change(function(){
+        let section_id = $(this).val();
+        //alert(section_id);
+        $.ajax({
+            type: 'post',
+            url: '/admin/append-categories-level',
+            data: {section_id:section_id},
+            success:function(resp){
+                $("#appendCategoriesLevel").html(resp);
+            },error:function(){
+                alert("Error");
+            }
+        })
+    })
 });

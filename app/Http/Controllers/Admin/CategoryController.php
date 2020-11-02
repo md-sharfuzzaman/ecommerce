@@ -12,9 +12,9 @@ class CategoryController extends Controller
 {
     public function categories(){
         Session::put('page', 'categories');
-        $categories = Category::get();
-       /*  $categories = json_decode(json_encode($categories));
-        echo "<pre>"; print_r($categories); die; */
+        $categories = Category::with(['section', 'parentCategory'])->get();
+        $categories = json_decode(json_encode($categories));
+       /*  echo "<pre>"; print_r($categories); die; */
         return view('admin.pages.category.categories')->with(compact('categories'));
     }
 
@@ -40,13 +40,22 @@ class CategoryController extends Controller
             $title = "Add Category";
             // Add Category Functionality
             $category = new Category;
+            $categoryData = array();
+            $getCategories = array();
+            $message = "Category Added Successfully!";
         }else{
             // Add Category Functionality
             $title = "Edit Category";
+            $categoryData= Category::where('id', $id)->first();
+            $categoryData = json_decode(json_encode($categoryData), true);
+            $getCategories = Category::with('subcategories')->where(['parent_id'=> 0, 'section_id'=> $categoryData['section_id']])->get();
+            $getCategories = json_decode(json_encode($getCategories), true);
+            /* echo "<pre>"; print_r($getCategories); die; */
+            $category = Category::find($id);
+            $message = "Category Update Successfully!";
         }
 
         // get form data
-
         if($request->isMethod('post')){
             $data = $request->all();
             /* echo "<pre>"; print_r($data); die; */
@@ -71,7 +80,7 @@ class CategoryController extends Controller
             $this->validate($request, $rules, $customMessage);
 
             if(empty($data['description'])){
-                $data['category_description']="";
+                $data['description']="";
             }
             if(empty($data['meta_title'])){
                 $data['meta_title']="";
@@ -83,7 +92,7 @@ class CategoryController extends Controller
                 $data['meta_keywords']="";
             }
             if(empty($data['category_discount'])){
-                $data['category_discount']="";
+                $data['category_discount']=0;
             }
             
             // upload category image
@@ -109,7 +118,7 @@ class CategoryController extends Controller
             $category->section_id  = $data['section_id'];
             $category->category_name   = $data['category_name'];
             $category->category_discount   = $data['category_discount'];
-            $category->description   = $data['category_description'];
+            $category->description   = $data['description'];
             $category->url   = $data['category_url'];
             $category->meta_title   = $data['meta_title'];
             $category->meta_description   = $data['meta_description'];
@@ -117,7 +126,7 @@ class CategoryController extends Controller
             $category->status   = 1;
             $category->save();
             
-            Session::flash('success_message', 'Category added successfully');
+            Session::flash('success_message', $message);
             return redirect('admin/categories');
         }
 
@@ -125,7 +134,20 @@ class CategoryController extends Controller
 
         $getSections = Section::get();
 
-        return view('admin.pages.category.add_edit_category')->with(compact('title', 'getSections'));
+        return view('admin.pages.category.add_edit_category')->with(compact('title', 'getSections', 'categoryData', 'getCategories'));
+    }
+
+    public function appendCategoryLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            /* echo "<pre>"; print_r($data); die; */
+            $getCategories = Category::with('subcategories')->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])->get();
+
+            $getCategories = json_decode(json_encode($getCategories),true);
+            /* echo "<pre>"; print_r($getCategories); die; */
+
+            return view('admin.pages.category.append_categories_level')->with(compact('getCategories'));
+        }
     }
 }
  
