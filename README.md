@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/md-sharfuzzaman/" target="_blank"><img src="https://avatars2.githubusercontent.com/u/47491930?s=400&u=72a33829d62fbd1f4ca74290a3ce26aea24c2687&v=4" width="400"></a></p>
+<p align="center"><a href="https://github.com/md-sharfuzzaman/" target="_blank"><img src="sharfuzzaman.png" width="400"></a></p>
 
 <p align="center">
 
