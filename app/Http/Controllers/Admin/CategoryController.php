@@ -48,6 +48,7 @@ class CategoryController extends Controller
             $title = "Edit Category";
             $categoryData= Category::where('id', $id)->first();
             $categoryData = json_decode(json_encode($categoryData), true);
+           /*  echo "<pre>"; print_r($categoryData); die; */
             $getCategories = Category::with('subcategories')->where(['parent_id'=> 0, 'section_id'=> $categoryData['section_id']])->get();
             $getCategories = json_decode(json_encode($getCategories), true);
             /* echo "<pre>"; print_r($getCategories); die; */
@@ -100,11 +101,10 @@ class CategoryController extends Controller
                 $image_tmp = $request->file('category_image');
                 if($image_tmp->isValid()){
                     // get image extension
-
                     $extension= $image_tmp->getClientOriginalExtension();
                     // generate new image name
                     $imageName= rand(111, 99999).'.'.$extension;
-                    $imagePath = 'images/category_image'.$imageName;
+                    $imagePath = 'images/category_image/'.$imageName;
                     // upload the image
 
                     Image::make($image_tmp)->save($imagePath);
@@ -148,6 +148,32 @@ class CategoryController extends Controller
 
             return view('admin.pages.category.append_categories_level')->with(compact('getCategories'));
         }
+    }
+
+    // Category Image Delete Controller 
+    public function deleteCategoryImage($id){
+        // get Category Image
+        $categoryImage = Category::select('category_image')->where('id', $id)->first();
+        // Get Category Image path
+        $category_image_path = 'images/category_image/';
+
+        // Delete Category image from category_images folder if exists
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+
+        // Delete Category image Categories Table 
+        Category::where('id', $id)->update(['category_image' => '']);
+        return redirect()->back()->with('success_message', 'Category Image has been deleted successfully!');
+    }
+
+    // delete category
+    public function deleteCategory($id){
+        // delete category
+        Category::where('id', $id)->delete();
+        $message = 'Category has been deleted successfully!';
+        session::flash('success_message', $message);
+        return redirect()->back();
     }
 }
  

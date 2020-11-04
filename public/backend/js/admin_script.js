@@ -85,4 +85,34 @@ $(document).ready(function(){
             }
         })
     })
+
+    // Confirm Deletion of Record
+    /* $(".confirmDelete").click(function(){
+        let name = $(this).attr("name");
+        if(confirm("Are you sure to delete this "+name+"?")){
+            return true;
+        }
+        return false;
+    }) */
+
+    // confirm deletion with sweetAlert
+    $(".confirmDelete").click(function(){
+        let record = $(this).attr("record");
+        let recordId= $(this).attr("recordid")
+        let name = $(this).attr("name");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+              window.location.href="/admin/delete-"+record+"/"+recordId;
+            }
+        })
+    })
+
 });

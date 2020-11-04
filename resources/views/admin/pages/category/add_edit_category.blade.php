@@ -32,6 +32,14 @@
                     </ul>
                 </div>
             @endif
+            @if (Session::has('success_message'))
+				<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+					{{Session::get('success_message')}}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			@endif 
             <form 
                 @if (empty($categoryData['id']))
                     action="{{ url('admin/add-edit-category') }}"
@@ -89,7 +97,14 @@
                                         <div class="input-group-append">
                                           <span class="input-group-text" id="">Upload</span>
                                         </div>
+                                                                    
                                     </div>
+                                    @if (!empty($categoryData['category_image']))
+                                        <div style="height: 100px;">
+                                            <img style=" width: 60px; margin-top: 5px" src="{{ asset('images/category_image/'.$categoryData['category_image']) }}">
+                                           <a href="javascript:void(0)" class="confirmDelete" record="category-image" recordid={{ $categoryData['id'] }}  {{-- href="{{ url('admin/delete-category-image/'.$categoryData['id']) }}" --}}> &nbsp; Delete Image</a>
+                                        </div>                                           
+                                    @endif        
                                 </div>
                             </div>
                         </div>

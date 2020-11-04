@@ -123,5 +123,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('backend/js/demo.js')}}"></script>
 <script src="{{ url('backend/js/admin_script.js')}}"></script>
+<!-- Sweet alert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 </html>
