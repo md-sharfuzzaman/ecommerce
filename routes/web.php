@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         // Delete Category
         Route::get('delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
+
+        // Products Routs
+        Route::get('products', [ProductsController::class, 'products']);
 
     });
    
