@@ -115,4 +115,30 @@ $(document).ready(function(){
         })
     })
 
+
+    // Product Status
+
+    // update Product status
+
+    $(".updateProductStatus").click(function(){
+        let status = $(this).text();
+        let product_id  = $(this).attr("product_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-product-status',
+            data: {status: status, product_id:product_id},
+            success:function(resp){
+                
+                if(resp['status']==0){
+                    $("#product-"+product_id).html(" <a href='javascript:void(0) class='updateProductStatus'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#product-"+product_id).html(" <a href='javascript:void(0) class='updateProductStatus'>Active</a>");
+                }
+            }, error:function(){
+                alert('error')
+            }
+        })
+
+    });
+
 });
