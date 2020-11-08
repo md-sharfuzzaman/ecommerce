@@ -83,9 +83,9 @@
                     <label for="adminImage">Image</label>
                     <input type="file" accept="image/*" name="admin_image" class="form-control" id="admin_image">
                     @if (!empty(Auth::guard('admin')->user()->image))
-                        <a target="_blank" href="{{url('backend/img/admin_photos'.Auth::guard('admin')->user()->image)}}">view image</a>
+                        <a target="_blank" href="{{url('backend/img/admin_photos/'.Auth::guard('admin')->user()->image)}}">view image</a>
                         <div >
-                          <img style="height: 50px; width: 50px" src="{{url('backend/img/admin_photos'.Auth::guard('admin')->user()->image)}}" alt="">
+                          <img style="height: 50px; width: 50px" src="{{url('backend/img/admin_photos/'.Auth::guard('admin')->user()->image)}}" alt="">
                         </div>
                         <input type="hidden" name="current_admin_image" value="{{Auth::guard('admin')->user()->image}}"
                     @endif
