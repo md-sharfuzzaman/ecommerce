@@ -67,9 +67,17 @@
                                                 @foreach ($categories as $section)
                                                     <optgroup label="{{ $section['name'] }}"></optgroup>
                                                     @foreach ($section['categories'] as $category)
-                                                        <option value="{{ $category['id'] }}">{{ $category['category_name'] }}</option>
+                                                        <option value="{{ $category['id'] }}"
+                                                            @if (!empty(@old('category_id')) && $category['id']==@old('category_id'))
+                                                                selected
+                                                            @endif
+                                                        >{{ $category['category_name'] }}</option>
                                                         @foreach ($category['subcategories'] as $subcategory)
-                                                        <option value="{{ $subcategory['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- {{ $subcategory['category_name'] }}</option>
+                                                            <option value="{{ $subcategory['id'] }}"
+                                                                @if (!empty(@old('category_id')) && $subcategory['id']==@old('category_id'))
+                                                                    selected
+                                                                @endif
+                                                            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- {{ $subcategory['category_name'] }}</option>
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
@@ -173,8 +181,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Select Febric</label>
-                                            <select name="febric" id="febric" class="form-control select2" style="width: 100%;">
+                                            <label>Select Fabric</label>
+                                            <select name="fabric" id="fabric" class="form-control select2" style="width: 100%;">
                                                 <option value="">Select</option>
         
                                                 @foreach ($fabricArray as $fabric)
@@ -248,8 +256,8 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="meta_keyword">Meta keywords</label>
-                                            <textarea name="meta_keyword" class="form-control" id="meta_keyword" rows="3" placeholder="Enter ...">@if(!empty($productData['meta_keyword'])){{$productData['meta_keyword']}}@else{{old('meta_keyword')}}@endif</textarea>
+                                            <label for="meta_keywords">Meta keywords</label>
+                                            <textarea name="meta_keywords" class="form-control" id="meta_keywords" rows="3" placeholder="Enter ...">@if(!empty($productData['meta_keywords'])){{$productData['meta_keywords']}}@else{{old('meta_keywords')}}@endif</textarea>
 
                                         </div>
                                         <div class="from-group">

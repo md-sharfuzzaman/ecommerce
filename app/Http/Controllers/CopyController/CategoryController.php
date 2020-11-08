@@ -13,8 +13,8 @@ class CategoryController extends Controller
     public function categories(){
         Session::put('page', 'categories');
         $categories = Category::with(['section', 'parentCategory'])->get();
-        $categories = json_decode(json_encode($categories));
-       /*  echo "<pre>"; print_r($categories); die; */
+        /* $categories = json_decode(json_encode($categories));
+        echo "<pre>"; print_r($categories); die; */
         return view('admin.pages.category.categories')->with(compact('categories'));
     }
 
@@ -48,6 +48,7 @@ class CategoryController extends Controller
             $title = "Edit Category";
             $categoryData= Category::where('id', $id)->first();
             $categoryData = json_decode(json_encode($categoryData), true);
+           /*  echo "<pre>"; print_r($categoryData); die; */
             $getCategories = Category::with('subcategories')->where(['parent_id'=> 0, 'section_id'=> $categoryData['section_id']])->get();
             $getCategories = json_decode(json_encode($getCategories), true);
             /* echo "<pre>"; print_r($getCategories); die; */
@@ -100,11 +101,10 @@ class CategoryController extends Controller
                 $image_tmp = $request->file('category_image');
                 if($image_tmp->isValid()){
                     // get image extension
-
                     $extension= $image_tmp->getClientOriginalExtension();
                     // generate new image name
                     $imageName= rand(111, 99999).'.'.$extension;
-                    $imagePath = 'images/category_image'.$imageName;
+                    $imagePath = 'images/category_image/'.$imageName;
                     // upload the image
 
                     Image::make($image_tmp)->save($imagePath);
