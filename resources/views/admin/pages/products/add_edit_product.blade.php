@@ -70,12 +70,14 @@
                                                         <option value="{{ $category['id'] }}"
                                                             @if (!empty(@old('category_id')) && $category['id']==@old('category_id'))
                                                                 selected
+                                                            @elseif(!empty($productData['category_id']) && $productData['category_id'] == $category['id']) selected
                                                             @endif
                                                         >{{ $category['category_name'] }}</option>
                                                         @foreach ($category['subcategories'] as $subcategory)
                                                             <option value="{{ $subcategory['id'] }}"
                                                                 @if (!empty(@old('category_id')) && $subcategory['id']==@old('category_id'))
                                                                     selected
+                                                                @elseif(!empty($productData['category_id']) && $productData['category_id'] == $subcategory['id']) selected
                                                                 @endif
                                                             >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- {{ $subcategory['category_name'] }}</option>
                                                         @endforeach
@@ -187,7 +189,12 @@
                                                 <option value="">Select</option>
         
                                                 @foreach ($fabricArray as $fabric)
-                                                    <option value="{{ $fabric }}">{{ $fabric }}</option>
+                                                    <option value="{{ $fabric }}"
+                                                        @if (!empty($productData['fabric']) && $productData['fabric'] == $fabric) selected   
+                                                        @endif
+                                                    >
+                                                        {{ $fabric }}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
@@ -207,7 +214,13 @@
                                                 <option value="">Select</option>
         
                                                 @foreach ($sleeveArray as $sleeve)
-                                                    <option value="{{ $sleeve }}">{{ $sleeve }}</option>
+                                                    <option value="{{ $sleeve }}"
+                                                        @if (!empty($productData['sleeve']) && $productData['sleeve'] == $sleeve) 
+                                                            selected   
+                                                        @endif
+                                                    >
+                                                        {{ $sleeve }}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
@@ -218,7 +231,13 @@
                                                 <option value="">Select</option>
         
                                                 @foreach ($patternArray as $pattern)
-                                                    <option value="{{ $pattern }}">{{ $pattern }}</option>
+                                                    <option value="{{ $pattern }}"
+                                                        @if (!empty($productData['pattern']) && $productData['pattern'] == $pattern) 
+                                                            selected   
+                                                        @endif
+                                                    >
+                                                        {{ $pattern }}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
@@ -231,7 +250,13 @@
                                                 <option value="">Select</option>
         
                                                 @foreach ($fitArray as $fit)
-                                                    <option value="{{ $fit }}">{{ $fit }}</option>
+                                                    <option value="{{ $fit }}"
+                                                        @if (!empty($productData['fit']) && $productData['fit'] == $fit) 
+                                                            selected   
+                                                        @endif
+                                                    >
+                                                        {{ $fit }}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
@@ -242,7 +267,13 @@
                                                 <option value="">Select</option>
         
                                                 @foreach ($occasionArray as $occasion)
-                                                    <option value="{{ $occasion }}">{{ $occasion }}</option>
+                                                    <option value="{{ $occasion }}"
+                                                        @if (!empty($productData['occasion']) && $productData['occasion'] == $occasion) 
+                                                            selected
+                                                        @endif
+                                                    >
+                                                        {{ $occasion }}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
@@ -263,7 +294,11 @@
                                         </div>
                                         <div class="from-group">
                                             <label for="featured_item">Featured Item</label>
-                                            <input type="checkbox" name="is_featured" id="is_featured" value="1">
+                                            <input type="checkbox" name="is_featured" id="is_featured" value="1"
+                                            @if (!empty($productData['is_featured']) && $productData['is_featured'] == "Yes") 
+                                                checked
+                                             @endif
+                                            >
                                         </div>
                                     </div>
                                     <div class="col-md-6">

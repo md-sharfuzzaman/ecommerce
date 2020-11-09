@@ -47,9 +47,10 @@ class CategoryController extends Controller
             // Add Category Functionality
             $title = "Edit Category";
             $categoryData= Category::where('id', $id)->first();
-            $categoryData = json_decode(json_encode($categoryData), true);
+           /*  $categoryData = json_decode(json_encode($categoryData), true);
+            echo "<pre>"; print_r($categoryData); die; */
             $getCategories = Category::with('subcategories')->where(['parent_id'=> 0, 'section_id'=> $categoryData['section_id']])->get();
-            $getCategories = json_decode(json_encode($getCategories), true);
+           /*  $getCategories = json_decode(json_encode($getCategories), true); */
             /* echo "<pre>"; print_r($getCategories); die; */
             $category = Category::find($id);
             $message = "Category Update Successfully!";
@@ -104,7 +105,7 @@ class CategoryController extends Controller
                     $extension= $image_tmp->getClientOriginalExtension();
                     // generate new image name
                     $imageName= rand(111, 99999).'.'.$extension;
-                    $imagePath = 'images/category_image'.$imageName;
+                    $imagePath = 'images/category_image/'.$imageName;
                     // upload the image
 
                     Image::make($image_tmp)->save($imagePath);
@@ -113,6 +114,8 @@ class CategoryController extends Controller
                     
                 }
             }
+            
+           
 
             $category->parent_id = $data['parent_id'];
             $category->section_id  = $data['section_id'];

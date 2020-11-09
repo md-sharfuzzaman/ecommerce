@@ -24,7 +24,7 @@ class ProductsController extends Controller
         ])->get();
        /*  $products = json_decode(json_encode($products));
         echo "<pre>"; print_r($products); die; */
-        return view('admin.pages.products.index')->with(compact('products'));
+        return view('admin.pages.products.product')->with(compact('products'));
     }
 
     // Update Product Status
@@ -49,10 +49,18 @@ class ProductsController extends Controller
             $title = "Add Product";
 
             $product = new Product;
+            $productData = array();
 
+            $message = "Product added successfully";
 
         }else{
+
             $title = "Edit Product";
+            $productData = Product::find($id);
+            $productData = json_decode(json_encode($productData), true);
+            /* echo "<pre>"; print_r($productData); die; */
+            $product= Product::find($id);
+            $message = "Product Updated successfully";
         }
 
         if($request->isMethod('post')){
@@ -149,11 +157,12 @@ class ProductsController extends Controller
                     Image::make($image_tmp)->resize(260, 300)->save($small_image_path);
                     // Save main image to products table
                     $product->main_image = $imageName;
+                    
                 }
             }
             // Upload Product Video
-             // Upload product image
-             if($request->hasFile('product_video')){
+            
+            if($request->hasFile('product_video')){
                 $video_tmp = $request->file('product_video');
                 if($video_tmp->isValid()){
                     // Upload Video
@@ -161,7 +170,7 @@ class ProductsController extends Controller
                     $video_name = pathinfo($video_name,PATHINFO_FILENAME);
                     $extension = $video_tmp->getClientOriginalExtension();
                     $videoName = $video_name.'-'.rand().'.'.$extension;
-                    $video_path = 'videos/product_videos/'.$imageName;
+                    $video_path = 'videos/product_videos/'.$videoName;
                     $video_tmp->move($video_path, $videoName);
                     // Save Video to products table
                     $product->product_video = $videoName;
@@ -179,8 +188,6 @@ class ProductsController extends Controller
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
             $product->product_weight = $data['product_weight'];
-           /*  $product->main_image = $data['main_image']; */
-           /*  $product->product_video = $data['product_video']; */
             $product->description = $data['description'];
             $product->wash_care = $data['wash_care'];
             $product->fabric = $data['fabric'];
@@ -194,7 +201,7 @@ class ProductsController extends Controller
             $product->is_featured = $is_featured;
             $product->status = 1;
             $product->save();
-            session::flash('success_message', 'Product added successfully');
+            session::flash('success_message', $message);
             return redirect('admin/products');
            
         }
@@ -208,13 +215,14 @@ class ProductsController extends Controller
         $fitArray = array('Regular', 'Slim');
         $occasionArray = array('Casual', 'Formal');
 
+
         // Section with Categories and Sub Categories
 
         $categories = Section::with('categories')->get();
 
         /* $categories = json_decode(json_encode($categories), true);
         echo "<pre>"; print_r($categories); die; */
-        return view('admin.pages.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleeveArray', 'patternArray', 'fitArray', 'occasionArray', 'categories',));
+        return view('admin.pages.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleeveArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productData'));
     }
 
     // Delete product Status
