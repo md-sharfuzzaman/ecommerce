@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Intervention\Image\Facades\Image;
 use App\Models\Section;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class ProductsController extends Controller
 
         if($request->isMethod('post')){
             $data = $request->all();
-           /*  echo "<pre>"; print_r($data); die; */
+            /* echo "<pre>"; print_r($data); die; */
 
             // Product Validation
             $rules = [
@@ -85,8 +86,6 @@ class ProductsController extends Controller
                 $is_featured = "Yes";
             }
 
-
-          
             if(empty($data['product_discount'])){
                 $data['product_discount'] = 0;
             }
@@ -124,10 +123,49 @@ class ProductsController extends Controller
                 $data['meta_description']= "";
             }
             if(empty($data['main_image'])){
-                $data['main_image'] = "image.jpg";
+                $data['main_image'] = "";
             }
             if(empty($data['product_video'])){
-                $data['product_video'] = "video.mp4";
+                $data['product_video'] = "";
+            }
+
+            // Upload product image
+            if($request->hasFile('main_image')){
+                $image_tmp = $request->file('main_image');
+                if($image_tmp->isValid()){
+                    // Upload Images after Resize
+                    $image_name = $image_tmp->getClientOriginalName();
+                    $image_name = pathinfo($image_name,PATHINFO_FILENAME);
+                    $extension = $image_tmp->getClientOriginalExtension();
+                   /*  echo $image_name; echo"<br>"; echo $extension; die; */
+                    $imageName = $image_name.'-'.rand(111,9999).'.'.$extension;
+                    /* dd($imageName); */
+                    $large_image_path = 'images/product_images/large/'.$imageName;
+                    $medium_image_path = 'images/product_images/medium/'.$imageName;
+                    $small_image_path = 'images/product_images/small/'.$imageName;
+
+                    Image::make($image_tmp)->save($large_image_path); // W: 1040 H: 1200
+                    Image::make($image_tmp)->resize(520, 600)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(260, 300)->save($small_image_path);
+                    // Save main image to products table
+                    $product->main_image = $imageName;
+                }
+            }
+            // Upload Product Video
+             // Upload product image
+             if($request->hasFile('product_video')){
+                $video_tmp = $request->file('product_video');
+                if($video_tmp->isValid()){
+                    // Upload Video
+                    $video_name = $video_tmp->getClientOriginalName();
+                    $video_name = pathinfo($video_name,PATHINFO_FILENAME);
+                    $extension = $video_tmp->getClientOriginalExtension();
+                    $videoName = $video_name.'-'.rand().'.'.$extension;
+                    $video_path = 'videos/product_videos/'.$imageName;
+                    $video_tmp->move($video_path, $videoName);
+                    // Save Video to products table
+                    $product->product_video = $videoName;
+                }
             }
 
             // Save product details in products table 
@@ -141,8 +179,8 @@ class ProductsController extends Controller
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
             $product->product_weight = $data['product_weight'];
-            $product->main_image = $data['main_image'];
-            $product->product_video = $data['product_video'];
+           /*  $product->main_image = $data['main_image']; */
+           /*  $product->product_video = $data['product_video']; */
             $product->description = $data['description'];
             $product->wash_care = $data['wash_care'];
             $product->fabric = $data['fabric'];
