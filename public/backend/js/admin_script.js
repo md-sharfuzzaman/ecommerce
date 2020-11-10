@@ -141,4 +141,31 @@ $(document).ready(function(){
 
     });
 
+
+    // Products Attributes Add/Remove Scripts
+
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div style="margin-top:10px; margin-left: 2px"> <input style="width: 120px" id="size" type="text" required name="size[]" value="" placeholder="Size"/><input style="width: 120px" id="sku" name="sku[]" required type="text" name="sku[]" value="" placeholder="SKU"/><input style="width: 120px" id="price" required type="number" name="price[]" value="" placeholder="Price"/><input style="width: 120px" id="stock" name="stock[]" required type="number" name="stock[]" value="" placeholder="Stock"/><a href="javascript:void(0);" class="remove_button"> Remove</a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+
+
 });

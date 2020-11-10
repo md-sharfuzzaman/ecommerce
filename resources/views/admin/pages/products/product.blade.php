@@ -72,7 +72,7 @@
 										<td>{{$product->section->name}}</td>
 										<td>
 											@if ($product->status==1)
-											<a href="javascript:void(0)" id="product-{{$product->id}}" 
+											<a  href="javascript:void(0)" id="product-{{$product->id}}" 
 												product_id= {{$product->id}} class="updateProductStatus">Active</a>
 											@else
 											<a href="javascript:void(0)" id="product-{{$product->id}}" 
@@ -80,8 +80,9 @@
 											@endif
 										</td>
 										<td>
-											<a href="{{ url('admin/add-edit-product/'.$product->id) }}">Edit</a>&nbsp;&nbsp;
-											<a href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" name="product" {{--  href="{{ url('admin/delete-product/'.$product->id) }}"--}} >Delete</a>
+											<a title="Add Attributes" href="{{ url('admin/add-attributes/'.$product->id) }}"><i class="fas fa-plus"></i></a>&nbsp;&nbsp;
+											<a title="Upade Product" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
+											<a title="Delete Product" href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" name="product" {{--  href="{{ url('admin/delete-product/'.$product->id) }}"--}} ><i class="fas fa-trash"></i></a>
 										</td>
 									
 									</tr>
