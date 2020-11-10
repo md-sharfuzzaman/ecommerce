@@ -130,12 +130,6 @@ class ProductsController extends Controller
             if(empty($data['meta_description'])){
                 $data['meta_description']= "";
             }
-            if(empty($data['main_image'])){
-                $data['main_image'] = "";
-            }
-            if(empty($data['product_video'])){
-                $data['product_video'] = "";
-            }
 
             // Upload product image
             if($request->hasFile('main_image')){
@@ -233,5 +227,48 @@ class ProductsController extends Controller
         $message = 'Product has been deleted successfully!';
         session::flash('success_message', $message);
         return redirect()->back();
+    }
+
+
+    // Product Image Delete Controller 
+    public function deleteProductImage($id){
+        // get Category Image
+        $productImage = Product::select('main_image')->where('id', $id)->first();
+        // Get Category Image path
+        $small_image_path = 'images/product_images/small/';
+        $medium_image_path = 'images/product_images/medium/';
+        $large_image_path = 'images/product_images/large/';
+
+        // Delete small image from product image folder if exists
+        if(file_exists($small_image_path.$productImage->main_image)){
+            unlink($small_image_path.$productImage->main_image);
+        }
+        if(file_exists($medium_image_path.$productImage->main_image)){
+            unlink($medium_image_path.$productImage->main_image);
+        }
+        if(file_exists($large_image_path.$productImage->main_image)){
+            unlink($large_image_path.$productImage->main_image);
+        }
+
+        // Delete Product image Categories Table 
+        Product::where('id', $id)->update(['main_image' => '']);
+        return redirect()->back()->with('success_message', 'Product Image has been deleted successfully!');
+    }
+
+    // Product Video Delete Controller 
+    public function deleteProductVideo($id){
+        // get Category Image
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+        // Get Category Image path
+        $product_video_path = 'videos/product_video/'.$productVideo->product_video.'/';
+
+        // Delete Product image from product image folder if exists
+        if(file_exists($product_video_path.$productVideo->product_video)){
+            unlink($product_video_path.$productVideo->product_video);
+        }
+
+        // Delete Product image Categories Table 
+        Product::where('id', $id)->update(['product_video' => '']);
+        return redirect()->back()->with('success_message', 'Product Video has been deleted successfully!');
     }
 }

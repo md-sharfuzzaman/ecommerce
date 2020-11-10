@@ -157,9 +157,13 @@
                                                 </div>
                                                                             
                                             </div>Recomended Image Size: Width:1040px, Height: 1200px)
-
-                                            
                                         </div>
+                                        @if (!empty($productData['main_image']))
+                                            <div style="height: 100px;">
+                                                <img style=" width: 60px; margin-top: 5px" src="{{ asset('images/product_images/small/'.$productData['main_image']) }}">
+                                            <a href="javascript:void(0)" class="confirmDelete" record="product-image" recordid={{ $productData['id'] }}  {{-- href="{{ url('admin/delete-category-image/'.$categoryData['id']) }}" --}}> &nbsp; Delete Image</a>
+                                            </div>                                           
+                                        @endif  
                                        
                                     </div>
                                     <div class="col-md-6">
@@ -175,6 +179,12 @@
                                                 </div>
                                                                             
                                             </div>
+                                            @if (!empty($productData['product_video']))
+                                                <div>
+                                                    <a href="{{ url('videos/product_videos/'.$productData['product_video'].'/'.$productData['product_video']) }}">Download</a>
+                                                    <a href="javascript:void(0)" class="confirmDelete" record="product-video" recordid={{ $productData['id'] }}  {{-- href="{{ url('admin/delete-category-image/'.$categoryData['id']) }}" --}}> &nbsp;&nbsp; Delete Video</a>
+                                                </div>
+                                            @endif
                                              
                                         </div>
                                         <div class="form-group">
@@ -306,11 +316,7 @@
                                             <label for="meta_description">Meta Description</label>
                                             <textarea name="meta_description" class="form-control" id="meta_description" rows="3" placeholder="Enter ...">@if(!empty($productData['meta_description'])){{$productData['meta_description']}}@else{{old('meta_description')}}@endif</textarea>
 
-                                        </div>
-
-                                        
-
-                                       
+                                        </div>                                       
                                     </div>
                                 </div>
                             </div>
