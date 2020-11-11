@@ -91,7 +91,11 @@
       "responsive": true,
       "autoWidth": false,
     });
-    
+  /*   $("#attributes").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+     */
     /* $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

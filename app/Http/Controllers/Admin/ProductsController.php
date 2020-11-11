@@ -308,17 +308,18 @@ class ProductsController extends Controller
                     $attribute->stock = $data['stock'][$key];
                     $attribute->status = 1;
                     $attribute->save();
-                    $message = 'Product Attributes added successfully';
-                    Session::flash('success_message', $message);
-                    return redirect()->back();
+                    
 
                 }
             }
+            $message = 'Product Attributes has been added successfully';
+            Session::flash('success_message', $message);
+            return redirect()->back();
         }
 
-        $productData = Product::find($id);
-       /*  $productData = json_decode(json_encode($productData), true);
-        echo "<pre>"; print_r($productData); die; */
+        $productData = Product::select('id', 'product_name', 'product_code', 'product_color', 'main_image')->with('attributes')->find($id);
+        $productData = json_decode(json_encode($productData), true);
+       /*  echo "<pre>"; print_r($productData); die; */
         $title = "product Attributes";
         return view('admin.pages.products.add_attributes')->with(compact('productData', 'title'));
     }

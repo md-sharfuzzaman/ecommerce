@@ -9,3 +9,4 @@ class ProductsAttribute extends Model
 {
     use HasFactory;
 }
+ 
