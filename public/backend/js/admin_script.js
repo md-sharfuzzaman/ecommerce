@@ -166,6 +166,29 @@ $(document).ready(function(){
         x--; //Decrement field counter
     });
 
+    
+    // update Product Attribute status
 
+    $(".updateAttributeStatus").click(function(){
+        
+        let status = $(this).text();
+        let attribute_id  = $(this).attr("attribute_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-attribute-status',
+            data: {status: status, attribute_id:attribute_id},
+            success:function(resp){
+                
+                if(resp['status']==0){
+                    $("#attribute-"+attribute_id).html(" <a href='javascript:void(0) class='updateAttributeStatus'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#attribute-"+attribute_id).html(" <a href='javascript:void(0) class='updateAttributeStatus'>Active</a>");
+                }
+            }, error:function(){
+                alert('error')
+            }
+        })
+
+    });
 
 });
