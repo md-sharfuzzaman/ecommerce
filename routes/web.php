@@ -57,16 +57,23 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('delete-product/{id}', [ProductsController::class, 'deleteProduct']);
         // Add Edit Product
         Route::get('delete-product/{id}', [ProductsController::class, 'deleteProduct']);
-        Route::match(['get', 'post'], 'add-edit-product/{id?}', [ProductsController::class, 'addEditProduct']);
+        Route::match(['get','post'], 'add-edit-product/{id?}', [ProductsController::class, 'addEditProduct']);
         //Delete Product Image
         Route::get('delete-product-image/{id}', [ProductsController::class, 'deleteProductImage']);
         Route::get('delete-product-video/{id}', [ProductsController::class, 'deleteProductVideo']);
 
         // Attributes Routes
-        Route::match(['get', 'post'], 'add-attributes/{id}', [ProductsController::class, 'addAttributes']);
+        Route::match(['get','post'], 'add-attributes/{id}', [ProductsController::class, 'addAttributes']);
         Route::post('edit-attributes/{id}', [ProductsController::class, 'editAttributes']);
         Route::post('update-attribute-status', [ProductsController::class, 'updateAttributeStatus']);
         Route::get('delete-attribute/{id}', [ProductsController::class, 'deleteAttribute']);
+
+        // Images
+        Route::match(['get','post'], 'add-images/{id}', [ProductsController::class, 'addImages']);
+        Route::post('update-image-status', [ProductsController::class, 'updateImageStatus']);
+        Route::get('delete-image/{id}', [ProductsController::class, 'deleteImage']);
+
+
     });
    
 });

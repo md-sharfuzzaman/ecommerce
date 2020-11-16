@@ -304,7 +304,7 @@
                                         </div>
                                         <div class="from-group">
                                             <label for="featured_item">Featured Item</label>
-                                            <input type="checkbox" name="is_featured" id="is_featured" value="1"
+                                            <input type="checkbox" name="is_featured" id="is_featured" value="Yes"
                                             @if (!empty($productData['is_featured']) && $productData['is_featured'] == "Yes") 
                                                 checked
                                              @endif

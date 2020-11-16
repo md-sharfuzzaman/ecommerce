@@ -191,4 +191,27 @@ $(document).ready(function(){
 
     });
 
+    // update Product Image status
+    $(".updateImageStatus").click(function(){
+        
+        let status = $(this).text();
+        let image_id  = $(this).attr("image_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-image-status',
+            data: {status: status, image_id:image_id},
+            success:function(resp){
+                
+                if(resp['status']==0){
+                    $("#image-"+image_id).html(" <a href='javascript:void(0) class='updateImageStatus'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#image-"+image_id).html(" <a href='javascript:void(0) class='updateImageStatus'>Active</a>");
+                }
+            }, error:function(){
+                alert('error')
+            }
+        })
+
+    });
+
 });

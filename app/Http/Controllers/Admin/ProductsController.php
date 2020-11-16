@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
+use App\Models\ProductsImage;
 use Intervention\Image\Facades\Image;
 use App\Models\Section;
 use Illuminate\Support\Facades\Session;
@@ -94,44 +95,7 @@ class ProductsController extends Controller
             }else{
                 $is_featured = "Yes";
             }
-
-            if(empty($data['product_discount'])){
-                $data['product_discount'] = 0;
-            }
-            if(empty($data['product_weight'])){
-                $data['product_weight'] = 0;
-            }
-            if(empty($data['description'])){
-                $data['description'] = "";
-            }
-            if(empty($data['wash_care'])){
-                $data['wash_care']= "";
-            }
-            if(empty($data['fabric'])){
-                $data['fabric']= "";
-            }
-            if(empty($data['pattern'])){
-                $data['pattern']= "";
-            }
-            if(empty($data['fit'])){
-                $data['fit']= "";
-            }
-            if(empty($data['sleeve'])){
-                $data['sleeve']= "";
-            }
-            if(empty($data['occasion'])){
-                $data['occasion']= "";
-            }
-            if(empty($data['meta_title'])){
-                $data['meta_title']= "";
-            }
-            if(empty($data['meta_keywords'])){
-                $data['meta_keywords']= "";
-            }
-            if(empty($data['meta_description'])){
-                $data['meta_description']= "";
-            }
-
+            
             // Upload product image
             if($request->hasFile('main_image')){
                 $image_tmp = $request->file('main_image');
@@ -198,6 +162,10 @@ class ProductsController extends Controller
             $product->save();
             session::flash('success_message', $message);
             return redirect('admin/products');
+
+           /*  if(!empty($data['is_featured'])){
+                $product->is_featured = $data['is_featured'];
+            } */
            
         }
 
@@ -367,6 +335,73 @@ class ProductsController extends Controller
     }
 
 
+    // Add images Function
 
+    public function addImages(Request $request, $id){
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            if($request->hasFile('images')){
+               $images = $request->file('images');
+               /* dd($images); */
+                foreach ($images as $key => $image){
+                    $productImage = new ProductsImage;
+                    $image_tmp = Image::make($image);
+                    $originalName = $image->getClientOriginalName();
+                    $originalName = pathinfo($originalName,PATHINFO_FILENAME);
+                    $extension = $image->getClientOriginalExtension();
+
+                   /*  $imageName = rand(111,999999).time().".".$extension; die; */
+                    $imageName = $originalName.'-'.rand(111,9999).'.'.$extension;
+                    /* dd($imageName); */
+                    $large_image_path = 'images/product_images/large/'.$imageName;
+                    $medium_image_path = 'images/product_images/medium/'.$imageName;
+                    $small_image_path = 'images/product_images/small/'.$imageName;
+
+                    Image::make($image_tmp)->save($large_image_path); // W: 1040 H: 1200
+                    Image::make($image_tmp)->resize(520, 600)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(260, 300)->save($small_image_path);
+                    // Save main image to products table
+                    $productImage->image = $imageName;
+                    $productImage->product_id = $id;
+                    $productImage->save();
+                }
+                $message = 'Product Images has been Added successfully!';
+                session::flash('success_message', $message);
+                return redirect()->back();
+            }
+        }
+
+        $productData = Product::with('images')->select('id', 'product_name', 'product_code', 'product_color', 'main_image')->find($id);
+        $productData = json_decode(json_encode($productData), true);
+        /*  dd($productData); */
+        $title = "product Images";
+        return view('admin.pages.products.add_images')->with(compact('productData', 'title'));
+
+    }
+
+    // Update status of product image
+    public function updateImageStatus(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+           /*  echo "<pre>"; print_r($data); die; */
+            if($data['status']=='Active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            ProductsImage::where('id', $data['image_id'])->update(['status'=>$status]);
+            return response()->json(['status' => $status, 'image_id'=>$data['image_id']]);
+        }
+    }
+
+    // Delete product image
+    public function deleteImage($id){
+        // delete product
+        ProductsImage::where('id', $id)->delete();
+        $message = 'Product Image has been deleted successfully!';
+        session::flash('success_message', $message);
+        return redirect()->back();
+    }
 
 }

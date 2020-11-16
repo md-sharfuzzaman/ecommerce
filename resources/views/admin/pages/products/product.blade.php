@@ -81,6 +81,7 @@
 										</td>
 										<td>
 											<a title="Add Attributes" href="{{ url('admin/add-attributes/'.$product->id) }}"><i class="fas fa-plus"></i></a>&nbsp;&nbsp;
+											<a title="Add Images" href="{{ url('admin/add-images/'.$product->id) }}"><i class="fas fa-image"></i></a>&nbsp;&nbsp;
 											<a title="Upade Product" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
 											<a title="Delete Product" href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" name="product" {{--  href="{{ url('admin/delete-product/'.$product->id) }}"--}} ><i class="fas fa-trash"></i></a>
 										</td>
