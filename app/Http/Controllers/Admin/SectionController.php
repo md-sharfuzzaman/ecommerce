@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\Section;
 use Illuminate\Http\Request;
@@ -15,7 +14,6 @@ class SectionController extends Controller
         $sections = Section::get();
         return view('admin.pages.sections.index')->with(compact('sections'));
     }
-
     // update status
     public function updateSectionStatus(Request $request){
         if($request->ajax()){

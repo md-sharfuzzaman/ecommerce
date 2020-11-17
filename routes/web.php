@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function(){
-    return "এইডা হইলো ইউজার ফ্রন্ট পেইজ। অইডাতে পরবর্তীতে কাজ করা হবে। আপাতত ব্যাক-এন্ড নিয়া  আছি।";
+    return "এইডা হইলো ইউজার ফ্রন্ট পেইজ। অইডাতে সামনে কাজ করা হবে। আপাতত ব্যাক-এন্ড নিয়া  আছি";
 });
 
 
@@ -28,17 +29,26 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::group(['middleware'=>['admin']], function(){
         Route::get('dashboard', [AdminController::class, 'dashboard']);
         Route::get('settings', [AdminController::class, 'settings']);
-        // Admin Details route
+        /* Admin Details route Start*/
         Route::match(['get', 'post'],'update-admin-details', [AdminController::class, 'updateAdminDetails']);
         Route::post('check-current-pwd', [AdminController::class, 'chkCurrentPassword']);
         Route::post('update-current-pwd', [AdminController::class, 'updateCurrentPassword']);
         Route::get('logout', [AdminController::class, 'logout']);
+        /* Admin Details route End*/
 
-        // Section Route
+        /* Section Route Start*/
         Route::get('sections', [SectionController::class, 'sections']);
         Route::post('update-section-status', [SectionController::class, 'updateSectionStatus']);
+        /* Section Route End*/
 
-        // Categories
+        /* Brand Route Start */
+        Route::get('brands', [BrandController::class, 'brands']);
+        Route::post('update-brand-status', [BrandController::class, 'updateBrandStatus']);
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', [BrandController::class, 'addEditBrand']);
+        Route::get('delete-brand/{id}', [BrandController::class, 'deleteBrand']);
+        /* Brand Route End */
+
+        /* Categories Route Start*/
         Route::get('categories', [CategoryController::class, 'categories']);
         Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus']);
         Route::match(['get', 'post'], 'add-edit-category/{id?}', [CategoryController::class, 'addEditCategory']);
@@ -48,9 +58,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('delete-category-image/{id}', [CategoryController::class, 'deleteCategoryImage']);
         // Delete Category
         Route::get('delete-category/{id}', [CategoryController::class, 'deleteCategory']);
+        /* Categories Route End*/
 
-
-        // Products Routs
+        /* Products Route Start */
         Route::get('products', [ProductsController::class, 'products']);
         Route::post('update-product-status', [ProductsController::class, 'updateProductStatus']);
         // Delete Category
@@ -61,18 +71,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         //Delete Product Image
         Route::get('delete-product-image/{id}', [ProductsController::class, 'deleteProductImage']);
         Route::get('delete-product-video/{id}', [ProductsController::class, 'deleteProductVideo']);
-
         // Attributes Routes
         Route::match(['get','post'], 'add-attributes/{id}', [ProductsController::class, 'addAttributes']);
         Route::post('edit-attributes/{id}', [ProductsController::class, 'editAttributes']);
         Route::post('update-attribute-status', [ProductsController::class, 'updateAttributeStatus']);
         Route::get('delete-attribute/{id}', [ProductsController::class, 'deleteAttribute']);
-
         // Images
         Route::match(['get','post'], 'add-images/{id}', [ProductsController::class, 'addImages']);
         Route::post('update-image-status', [ProductsController::class, 'updateImageStatus']);
         Route::get('delete-image/{id}', [ProductsController::class, 'deleteImage']);
+        /* Products Route End */
 
+       
 
     });
    

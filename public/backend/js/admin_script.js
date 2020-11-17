@@ -45,6 +45,28 @@ $(document).ready(function(){
 
     });
 
+    /* ব্রান্ড স্টাটাস আপডেট */
+    $(".updateBrandStatus").click(function(){
+        let status = $(this).text();
+        let brand_id = $(this).attr("brand_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-brand-status',
+            data: {status: status, brand_id:brand_id},
+            success:function(resp){
+                
+                if(resp['status']==0){
+                    $("#brand-"+brand_id).html(" <a href='javascript:void(0) class='updateBrandStatus'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#brand-"+brand_id).html(" <a href='javascript:void(0) class='updateBrandStatus'>Active</a>");
+                }
+            }, error:function(){
+                alert('error')
+            }
+        })
+
+    });
+
     // update category status
 
     $(".updateCategoryStatus").click(function(){

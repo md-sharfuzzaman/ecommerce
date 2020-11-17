@@ -83,6 +83,10 @@
       "responsive": true,
       "autoWidth": false,
     });
+    $("#brands").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
     $("#categories").DataTable({
       "responsive": true,
       "autoWidth": false,
