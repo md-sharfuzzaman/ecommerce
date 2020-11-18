@@ -42,9 +42,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Status</th>
                                         <th>Action</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     @foreach ($brands as $brand)
@@ -52,30 +51,20 @@
                                         <td>{{$brand->id}}</td>
                                         <td>{{$brand->name}}</td>
                                         <td>
+                                            <a title="Upade brand" href="{{ url('admin/add-edit-brand/'.$brand->id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                            <a title="Delete brand" href="javascript:void(0)" class="confirmDelete" record="brand" recordid="{{ $brand->id }}" name="brand"><i class="fas fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
                                             @if ($brand->status==1)
                                             <a href="javascript:void(0)" id="brand-{{$brand->id}}" 
-                                                brand_id= {{$brand->id}} class="updateBrandStatus">Active</a>
+                                                brand_id= {{$brand->id}} class="updateBrandStatus"><i class="fas fa-toggle-on" aria-hidden="true" status="Active"></i></a>
                                             @else
                                             <a href="javascript:void(0)" id="brand-{{$brand->id}}" 
-                                                brand_id= {{$brand->id}} class="updateBrandStatus">Inactive</a>
+                                                brand_id= {{$brand->id}} class="updateBrandStatus"><i class="fas fa-toggle-off" aria-hidden="true" status="Inactive"></i></a>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <a title="Upade brand" href="{{ url('admin/add-edit-brand/'.$brand->id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
-											<a title="Delete brand" href="javascript:void(0)" class="confirmDelete" record="brand" recordid="{{ $brand->id }}" name="brand"><i class="fas fa-trash"></i></a>
                                         </td>
                                     
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

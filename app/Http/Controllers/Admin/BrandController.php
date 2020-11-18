@@ -67,6 +67,7 @@ class BrandController extends Controller
             $brand->save();
 
             Session::flash('success_message', $message);
+            return redirect('admin/brands');
 
         }
 

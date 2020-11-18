@@ -65,7 +65,7 @@
                                             <select name="category_id" id="category_id" class="form-control select2" style="width: 100%;">
                                                 <option value="">Select</option>
                                                 @foreach ($categories as $section)
-                                                    <optgroup label="{{ $section['name'] }}"></optgroup>
+                                                    <optgroup label="{{ $section['name'] }}"></optgroup> 
                                                     @foreach ($section['categories'] as $category)
                                                         <option value="{{ $category['id'] }}"
                                                             @if (!empty(@old('category_id')) && $category['id']==@old('category_id'))
@@ -83,6 +83,23 @@
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Brand</label>
+                                            <select name="brand_id" id="brand_id" class="form-control select2" style="width: 100%;">
+                                                <option value="">Select</option>
+        
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand['id'] }}"
+                                                        @if (!empty($productData['brand_id']) && $productData['brand_id'] == $brand['id']) 
+                                                            selected   
+                                                        @endif
+                                                    >
+                                                        {{ $brand['name'] }}
+                                                    </option>
+                                                @endforeach
+                                                
                                             </select>
                                         </div>
                                         <div class="form-group">

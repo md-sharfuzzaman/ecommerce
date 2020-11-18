@@ -25,7 +25,7 @@ $(document).ready(function(){
     });
 
     $(".updateSectionStatus").click(function(){
-        let status = $(this).text();
+        let status = $(this).children("i").attr("status");
         let section_id = $(this).attr("section_id");
         $.ajax({
             type: 'post',
@@ -34,9 +34,9 @@ $(document).ready(function(){
             success:function(resp){
                 
                 if(resp['status']==0){
-                    $("#section-"+section_id).html(" <a href='javascript:void(0) class='updateSectionStatus'>Inactive</a>");
+                    $("#section-"+section_id).html("<i class='fas fa-toggle-off' aria-hidden='true' status='Inactive'></i>");
                 }else if(resp['status']==1){
-                    $("#section-"+section_id).html(" <a href='javascript:void(0) class='updateSectionStatus'>Active</a>");
+                    $("#section-"+section_id).html("<i class='fas fa-toggle-on' aria-hidden='true' status='Active'></i>");
                 }
             }, error:function(){
                 alert('error')
@@ -47,7 +47,8 @@ $(document).ready(function(){
 
     /* ব্রান্ড স্টাটাস আপডেট */
     $(".updateBrandStatus").click(function(){
-        let status = $(this).text();
+        let status = $(this).children("i").attr("status");
+        /* alert(status); return false; */
         let brand_id = $(this).attr("brand_id");
         $.ajax({
             type: 'post',
@@ -56,9 +57,9 @@ $(document).ready(function(){
             success:function(resp){
                 
                 if(resp['status']==0){
-                    $("#brand-"+brand_id).html(" <a href='javascript:void(0) class='updateBrandStatus'>Inactive</a>");
+                    $("#brand-"+brand_id).html("<i class='fas fa-toggle-off' aria-hidden='true' status='Inactive'></i>");
                 }else if(resp['status']==1){
-                    $("#brand-"+brand_id).html(" <a href='javascript:void(0) class='updateBrandStatus'>Active</a>");
+                    $("#brand-"+brand_id).html("<i class='fas fa-toggle-on' aria-hidden='true' status='Active'></i>");
                 }
             }, error:function(){
                 alert('error')
@@ -70,7 +71,7 @@ $(document).ready(function(){
     // update category status
 
     $(".updateCategoryStatus").click(function(){
-        let status = $(this).text();
+        let status = $(this).children("i").attr("status");
         let category_id  = $(this).attr("category_id");
         $.ajax({
             type: 'post',
@@ -79,9 +80,9 @@ $(document).ready(function(){
             success:function(resp){
                 
                 if(resp['status']==0){
-                    $("#category-"+category_id).html(" <a href='javascript:void(0) class='updateCategoryStatus'>Inactive</a>");
+                    $("#category-"+category_id).html("<i class='fas fa-toggle-off' aria-hidden='true' status='Inactive'></i>");
                 }else if(resp['status']==1){
-                    $("#category-"+category_id).html(" <a href='javascript:void(0) class='updateCategoryStatus'>Active</a>");
+                    $("#category-"+category_id).html("<i class='fas fa-toggle-on' aria-hidden='true' status='Active'></i>");
                 }
             }, error:function(){
                 alert('error')
@@ -143,7 +144,7 @@ $(document).ready(function(){
     // update Product status
 
     $(".updateProductStatus").click(function(){
-        let status = $(this).text();
+        let status = $(this).children("i").attr("status");
         let product_id  = $(this).attr("product_id");
         $.ajax({
             type: 'post',
@@ -152,9 +153,9 @@ $(document).ready(function(){
             success:function(resp){
                 
                 if(resp['status']==0){
-                    $("#product-"+product_id).html(" <a href='javascript:void(0) class='updateProductStatus'>Inactive</a>");
+                    $("#product-"+product_id).html("<i class='fas fa-toggle-off' aria-hidden='true' status='Inactive'></i>");
                 }else if(resp['status']==1){
-                    $("#product-"+product_id).html(" <a href='javascript:void(0) class='updateProductStatus'>Active</a>");
+                    $("#product-"+product_id).html("<i class='fas fa-toggle-on' aria-hidden='true' status='Active'></i>");
                 }
             }, error:function(){
                 alert('error')

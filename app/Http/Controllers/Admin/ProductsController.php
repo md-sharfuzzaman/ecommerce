@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
@@ -24,8 +25,8 @@ class ProductsController extends Controller
                 $query->select('id', 'name');
             }
         ])->get();
-       /*  $products = json_decode(json_encode($products));
-        echo "<pre>"; print_r($products); die; */
+        $products = json_decode(json_encode($products));
+       /*  echo "<pre>"; print_r($products); die; */
         return view('admin.pages.products.product')->with(compact('products'));
     }
 
@@ -67,7 +68,7 @@ class ProductsController extends Controller
 
         if($request->isMethod('post')){
             $data = $request->all();
-            /* echo "<pre>"; print_r($data); die; */
+           /*  echo "<pre>"; print_r($data); die; */
 
             // Product Validation
             $rules = [
@@ -140,6 +141,7 @@ class ProductsController extends Controller
             $categoryDetails = Category::find($data['category_id']);
             /*echo"<pre>"; print_r($categoryDetails); die;*/
             $product->section_id = $categoryDetails['section_id'];
+            $product->brand_id = $data['brand_id'];
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
@@ -182,10 +184,14 @@ class ProductsController extends Controller
         // Section with Categories and Sub Categories
 
         $categories = Section::with('categories')->get();
+        $categories = json_decode(json_encode($categories), true);
+       /*  echo "<pre>"; print_r($categories); die;
+ */
+        $brands = Brand::where('status', 1)->get();
 
         /* $categories = json_decode(json_encode($categories), true);
         echo "<pre>"; print_r($categories); die; */
-        return view('admin.pages.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleeveArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productData'));
+        return view('admin.pages.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleeveArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productData', 'brands'));
     }
 
     // Delete product Status

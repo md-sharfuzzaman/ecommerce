@@ -47,10 +47,10 @@
                         <td>
                             @if ($section->status==1)
                             <a href="javascript:void(0)" id="section-{{$section->id}}" 
-                                section_id= {{$section->id}} class="updateSectionStatus">Active</a>
+                                section_id= {{$section->id}} class="updateSectionStatus"><i class="fas fa-toggle-on" aria-hidden="true" status="Active"></i></a>
                             @else
                             <a href="javascript:void(0)" id="section-{{$section->id}}" 
-                                section_id= {{$section->id}} class="updateSectionStatus">Inactive</a>
+                                section_id= {{$section->id}} class="updateSectionStatus"><i class="fas fa-toggle-off" aria-hidden="true" status="Inactive"></i></a>
                             @endif
                         </td>
                      

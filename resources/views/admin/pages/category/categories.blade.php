@@ -46,7 +46,6 @@
 										<th>Parent Category</th>
 										<th>Section</th>										
 										<th>URL</th>
-										<th>Status</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
@@ -64,17 +63,15 @@
 										<td>{{$category->section->name}}</td>
 										<td>{{$category->url}}</td>
 										<td>
+											<a href="{{ url('admin/add-edit-category/'.$category->id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+											<a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" name="Category"><i class="fas fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
 											@if ($category->status==1)
 											<a href="javascript:void(0)" id="category-{{$category->id}}" 
-												category_id= {{$category->id}} class="updateCategoryStatus">Active</a>
+												category_id= {{$category->id}} class="updateCategoryStatus"><i class="fas fa-toggle-on" aria-hidden="true" status="Active"></i></a>
 											@else
 											<a href="javascript:void(0)" id="category-{{$category->id}}" 
-												category_id= {{$category->id}} class="updateCategoryStatus">Inactive</a>
+												category_id= {{$category->id}} class="updateCategoryStatus"><i class="fas fa-toggle-off" aria-hidden="true" status="Inactive"></i></a>
 											@endif
-										</td>
-										<td>
-											<a href="{{ url('admin/add-edit-category/'.$category->id) }}">Edit</a>&nbsp;&nbsp;
-											<a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" name="Category" {{--  href="{{ url('admin/delete-category/'.$category->id) }}"--}} >Delete</a>
 										</td>
 									
 									</tr>
@@ -87,7 +84,6 @@
 										<th>Parent Category</th>
 										<th>Section</th>										
 										<th>URL</th>
-										<th>Status</th>
 										<th>Actions</th>
 									</tr>
 								</tfoot>
