@@ -79,7 +79,6 @@
                                         @foreach ($getSections as $section)
                                             <option value="{{ $section->id }}"
                                                 @if (!empty($categoryData['section_id']) && $categoryData['section_id']==$section->id) selected
-                                                    
                                                 @endif    
                                             >
                                                 {{ $section->name }}

@@ -24,7 +24,8 @@ $(document).ready(function(){
         });
     });
 
-    $(".updateSectionStatus").click(function(){
+    
+    $(document).on('click', '.updateSectionStatus', function(){
         let status = $(this).children("i").attr("status");
         let section_id = $(this).attr("section_id");
         $.ajax({
@@ -46,7 +47,7 @@ $(document).ready(function(){
     });
 
     /* ব্রান্ড স্টাটাস আপডেট */
-    $(".updateBrandStatus").click(function(){
+    $(document).on('click', '.updateBrandStatus', function(){
         let status = $(this).children("i").attr("status");
         /* alert(status); return false; */
         let brand_id = $(this).attr("brand_id");
@@ -70,7 +71,7 @@ $(document).ready(function(){
 
     // update category status
 
-    $(".updateCategoryStatus").click(function(){
+    $(document).on('click', '.updateCategoryStatus', function(){
         let status = $(this).children("i").attr("status");
         let category_id  = $(this).attr("category_id");
         $.ajax({
@@ -118,11 +119,12 @@ $(document).ready(function(){
         return false;
     }) */
 
+
+    // কমন ফাংশন। 
     // confirm deletion with sweetAlert
-    $(".confirmDelete").click(function(){
+    $(document).on('click', '.confirmDelete', function(){
         let record = $(this).attr("record");
         let recordId= $(this).attr("recordid")
-        let name = $(this).attr("name");
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -143,7 +145,7 @@ $(document).ready(function(){
 
     // update Product status
 
-    $(".updateProductStatus").click(function(){
+    $(document).on('click', '.updateProductStatus', function(){
         let status = $(this).children("i").attr("status");
         let product_id  = $(this).attr("product_id");
         $.ajax({
@@ -191,9 +193,7 @@ $(document).ready(function(){
 
     
     // update Product Attribute status
-
-    $(".updateAttributeStatus").click(function(){
-        
+    $(document).on('click', '.updateAttributeStatus', function(){
         let status = $(this).text();
         let attribute_id  = $(this).attr("attribute_id");
         $.ajax({
@@ -215,8 +215,8 @@ $(document).ready(function(){
     });
 
     // update Product Image status
-    $(".updateImageStatus").click(function(){
-        
+    
+    $(document).on('click', '.updateImageStatus', function(){
         let status = $(this).text();
         let image_id  = $(this).attr("image_id");
         $.ajax({

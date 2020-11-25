@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Front\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    return "এইডা হইলো ইউজার ফ্রন্ট পেইজ। অইডাতে সামনে কাজ করা হবে। আপাতত ব্যাক-এন্ড নিয়া  আছি";
+Route::namespace('Front')->group(function(){
+    Route::get('/', [IndexController::class, 'index']);
 });
 
 
