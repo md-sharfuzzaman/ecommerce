@@ -7,172 +7,32 @@
         <div class="row-fluid">
             <div id="featured" class="carousel slide">
                 <div class="carousel-inner">
-                    <div class="item active">
+                    @foreach ($featuredItemsChunk as $key => $featuredItem)
+                    <div class="item @if ($key==0) active @endif">
                         <ul class="thumbnails">
+                            @foreach ($featuredItem as $item)
                             <li class="span3">
                                 <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/b1.jpg" alt=""></a>
+                                   
+                                    <a href="javascript:void(0)">
+                                        <?php $product_image_path = "images/product_images/small/".$item['main_image'] ?>
+                                        @if (!empty($item['main_image']) && file_exists($product_image_path))
+                                            <img src="{{ asset($product_image_path) }}" alt="">
+                                        @else
+                                            <img src="images/product_images/small/no-image.png" alt="">
+                                        @endif
+                                        
+                                    </a>
                                     <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                        <h5>{{ $item['product_name'] }}</h5>
+                                        <h4><a class="btn" href="javascript:void(0)">VIEW</a> <span class="pull-right">{{ $item['product_price'] }}</span></h4>
                                     </div>
                                 </div>
                             </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/b2.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/b3.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/b4.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
-                    <div class="item">
-                        <ul class="thumbnails">
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/5.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src="frontend/images/products/6.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/7.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/8.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <ul class="thumbnails">
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/9.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/10.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/11.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/1.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <ul class="thumbnails">
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/2.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/3.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/4.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html"><img src="frontend/images/products/5.jpg" alt=""></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    @endforeach
                 </div>
                 <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
                 <a class="right carousel-control" href="#featured" data-slide="next">›</a>
@@ -181,79 +41,31 @@
     </div>
     <h4>Latest Products </h4>
     <ul class="thumbnails">
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/6.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
+        @foreach ($latestProducts as $latestProduct)
+            <li class="span3">
+                <div class="thumbnail">
+                    <a href="javascript:void(0)">
+                        <?php $product_image_path = "images/product_images/small/".$latestProduct['main_image'] ?>
+                        @if (!empty($latestProduct['main_image']) && file_exists($product_image_path))
+                            <img src="{{ asset($product_image_path) }}" alt="">
+                        @else
+                            <img src="images/product_images/small/no-image.png" alt="">
+                        @endif
+                        
+                    </a>
+                    <div class="caption">
+                        <h5>{{ $latestProduct['product_name'] }}</h5>
+                        <p>
+                            {{ $latestProduct['product_code'] }} ({{ $latestProduct['product_color'] }})
+                            {{-- {{ substr(strip_tags($latestProduct['description']), 0, 30) }} --}}
+                        </p>
+                        
+                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#"> {{ $latestProduct['product_price'] }}</a></h4>
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/7.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/8.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/9.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/10.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/images/products/11.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
+            </li>
+        @endforeach
+        
     </ul>
 </div>  
 @endsection
