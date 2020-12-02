@@ -59,7 +59,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="brand_name">Brand Name</label>
+                                    <label for="brand_name">Brand Name</label> 
                                     <input type="text" name="brand_name" class="form-control" id="brand_name" placeholder="Enter brand Name" 
                                     @if (!empty($brand['name']))
                                         value="{{ $brand['name'] }}"
@@ -69,8 +69,6 @@
                             </div>
                          
                         </div>
-                       
-                      
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
