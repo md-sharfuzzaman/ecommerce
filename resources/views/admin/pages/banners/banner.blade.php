@@ -52,7 +52,9 @@
                                     @foreach ($banners as $banner)
                                     <tr>
                                         <td>{{$banner['id']}}</td>
-                                        <td>{{$banner['image']}}</td>
+                                        <td>
+                                            <img src="{{ asset('images/banner_images'.$banner['image'])}}">
+                                        </td>
                                         <td>{{$banner['link']}}</td>
                                         <td>{{$banner['title']}}</td>
                                         <td>{{$banner['alt']}}</td>

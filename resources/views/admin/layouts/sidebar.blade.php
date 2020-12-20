@@ -79,7 +79,7 @@
                     <a href="#" class="nav-link {{$active}}">
                         <i class="nav-icon fas fa-user-cog"></i>
                         <p>
-                            Catalogues
+                            Catalogues 
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -132,6 +132,37 @@
                         
                     </ul>
                 </li>
+
+                <!-- Others -->
+                @if (Session::get('page')=='banners')
+                    <?php $active = "active"; $menuOpen = "menu-open"; ?>
+                @else 
+                    <?php $active = ""; $menuOpen = "" ?>
+                @endif
+                <li class="nav-item has-treeview {{ $menuOpen }} ">
+                    <a href="#" class="nav-link {{$active}}">
+                        <i class="nav-icon fas fa-user-cog"></i>
+                        <p>
+                            Others 
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      
+                        <li class="nav-item">
+                            @if (Session::get('page')=='banners')
+                                <?php $active = "active"; ?>
+                            @else 
+                                <?php $active = "" ?>
+                            @endif
+                            <a href="{{url('admin/banners')}}" class="nav-link {{$active}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Banners</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
       
