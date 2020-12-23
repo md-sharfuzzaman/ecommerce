@@ -53,7 +53,7 @@
                                     <tr>
                                         <td>{{$banner['id']}}</td>
                                         <td>
-                                            <img src="{{ asset('images/banner_images'.$banner['image'])}}">
+                                            <img width="100px" src="{{ asset('images/banner_images/'.$banner['image'])}}">
                                         </td>
                                         <td>{{$banner['link']}}</td>
                                         <td>{{$banner['title']}}</td>
