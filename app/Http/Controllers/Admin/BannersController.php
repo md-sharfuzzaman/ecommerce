@@ -49,4 +49,17 @@ class BannersController extends Controller
         session::flash('success_message', $message);
         return redirect()->back();
     }
+
+    // add edit banner
+
+    public function addEditBanner($id = null){
+        if($id = ""){
+            // add banner
+            $title = "Add Banner Image";
+        }else{
+            $title = "Edit Banner Image";
+        }
+
+        return view('admin.pages.banners.add-edit-banner')->with(compact('title'));
+    }
 }
