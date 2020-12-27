@@ -41,9 +41,9 @@
 				</div>
 			@endif 
             <form 
-                @if (empty($bannerData['id']))
+                @if (empty($banner['id']))
                     action="{{ url('admin/add-edit-banner') }}"
-                    @else action="{{ url('admin/add-edit-banner/'.$bannerData['id']) }}"
+                    @else action="{{ url('admin/add-edit-banner/'.$banner['id']) }}"
                 @endif 
                 name="bannerForm" id="bannerForm" method="post" enctype="multipart/form-data">@csrf
                 <div class="card card-default">
@@ -60,16 +60,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="banner_title">banner Title</label>
-                                    <input type="text" name="banner_title" class="form-control" id="banner_title" placeholder="Enter banner Name" 
-                                    @if (!empty($bannerData['banner_title']))
-                                        value="{{ $bannerData['banner_title'] }}"
+                                    <input type="text" name="banner_title" class="form-control" id="banner_title" placeholder="Enter banner banner Title" 
+                                    @if (!empty($banner['title']))
+                                        value="{{ $banner['title'] }}"
                                         @else value="{{ old('banner_title') }}"
+                                    @endif>
+                                </div>
+                                <div class="form-group">
+                                    <label for="banner_link">banner Link</label>
+                                    <input type="text" name="banner_link" class="form-control" id="banner_link" placeholder="Enter banner banner Link" 
+                                    @if (!empty($banner['link']))
+                                        value="{{ $banner['link'] }}"
+                                        @else value="{{ old('banner_link') }}"
                                     @endif>
                                 </div>
                                 
                             </div>
                             <div class="col-md-6">
-                                
+                                <div class="form-group">
+                                    <label for="banner_link">banner Alternate Text</label>
+                                    <input type="text" name="banner_alt" class="form-control" id="banner_alt" placeholder="Enter banner banner Alternate Text" 
+                                    @if (!empty($banner['alt']))
+                                        value="{{ $banner['alt'] }}"
+                                        @else value="{{ old('banner_alt') }}"
+                                    @endif>
+                                </div>
                                 <div class="form-group">
                                     <label for="bannerImage">banner Image</label>
                                     <div class="input-group">
@@ -82,10 +97,10 @@
                                         </div>
                                                                     
                                     </div>
-                                    @if (!empty($bannerData['banner_image']))
+                                    @if (!empty($banner['image']))
                                         <div style="height: 100px;">
-                                            <img style=" width: 60px; margin-top: 5px" src="{{ asset('images/banner_image/'.$bannerData['banner_image']) }}">
-                                           <a href="javascript:void(0)" class="confirmDelete" record="banner-image" recordid={{ $bannerData['id'] }}  {{-- href="{{ url('admin/delete-banner-image/'.$bannerData['id']) }}" --}}> &nbsp; Delete Image</a>
+                                            <img style=" width: 150px; margin-top: 5px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
+                                          
                                         </div>                                           
                                     @endif        
                                 </div>

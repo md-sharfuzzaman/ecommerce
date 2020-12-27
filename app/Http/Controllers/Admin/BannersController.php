@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class BannersController extends Controller
 {
@@ -52,14 +53,49 @@ class BannersController extends Controller
 
     // add edit banner
 
-    public function addEditBanner($id = null){
-        if($id = ""){
+    public function addEditBanner($id = null, Request $request){
+        if($id == ""){
             // add banner
             $title = "Add Banner Image";
+            $banner = new Banner;
+            $message = "Banner added successfully";
         }else{
+            $banner = Banner::find($id);
             $title = "Edit Banner Image";
+            $message = "Banner updated successfully";
         }
 
-        return view('admin.pages.banners.add-edit-banner')->with(compact('title'));
+        if($request->isMethod('post')){
+            $data = $request->all();
+           /*  dd($data); */
+            
+            $banner->title = $data['banner_title'];
+            $banner->link = $data['banner_link'];
+            $banner->alt = $data['banner_alt'];
+
+            // upload Banner image
+            if($request->hasFile('banner_image')){
+                $image_tmp = $request->file('banner_image');
+                if($image_tmp->isValid()){
+                    // get image extension
+
+                    $extension= $image_tmp->getClientOriginalExtension();
+                    // generate new image name
+                    $imageName= rand(111, 99999).'.'.$extension;
+                    $imagePath = 'images/banner_images/'.$imageName;
+                    // upload the image
+
+                    Image::make($image_tmp)->resize(1170, 480)->save($imagePath);
+                    // save Banner image
+                    $banner->image = $imageName;
+                    
+                }
+            }
+            $banner->save();
+            session::flash('success_message', $message);
+            return redirect('admin/banners');
+        }
+
+        return view('admin.pages.banners.add-edit-banner')->with(compact('title', 'banner'));
     }
 }
