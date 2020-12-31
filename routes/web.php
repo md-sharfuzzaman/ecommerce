@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ProductsController as FrontProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::namespace('Front')->group(function(){
+    // Home page Route
     Route::get('/', [IndexController::class, 'index']);
+    // Category Route 
+    Route::get('/{url}', [FrontProductsController::class, 'listing']);
 });
 
 

@@ -22,4 +22,16 @@ class Category extends Model
     public function parentCategory(){
         return $this->belongsTo('App\Models\Category', 'parent_id')->select('id', 'category_name');
     }
+
+    public static function categoryDetails($url){
+        $categoryDetails = Category::select('id', 'category_name', 'url')->with('subcategories')->where('url', $url)->first()->toArray();
+        
+        $catIds = array();
+        $catIds[] = $categoryDetails['id'];
+        foreach($categoryDetails['subcategories'] as $key => $subCategory){
+            $catIds[] = $subCategory['id'];
+        }
+        //dd($catIds); die;
+        return array('catIds' => $catIds, 'categoryDetails' => $categoryDetails);
+    }
 }
